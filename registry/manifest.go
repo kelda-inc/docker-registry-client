@@ -74,7 +74,13 @@ func (registry *Registry) ManifestDigest(repository, reference string) (digest.D
 	url := registry.url("/v2/%s/manifests/%s", repository, reference)
 	registry.Logf("registry.manifest.head url=%s repository=%s reference=%s", url, repository, reference)
 
-	resp, err := registry.Client.Head(url)
+	req, err := http.NewRequest("HEAD", url, nil)
+	if err != nil {
+		return "", err
+	}
+
+	req.Header.Set("Accept", schema2.MediaTypeManifest)
+	resp, err := registry.Client.Do(req)
 	if resp != nil {
 		defer resp.Body.Close()
 	}
