@@ -93,10 +93,6 @@ func newFromTransport(registryUrl, username, password string, transport http.Rou
 		Logf: logf,
 	}
 
-	if err := registry.Ping(); err != nil {
-		return nil, err
-	}
-
 	return registry, nil
 }
 
