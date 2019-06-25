@@ -3,6 +3,12 @@
 An API client for the [V2 Docker Registry
 API](http://docs.docker.com/registry/spec/api/), for Go applications.
 
+The original repository is forked to solve some issues in it:
+
+- It inevitably prints all the logs to stdout.
+- It doesn't correctly get the digest for manifest v2. Now it'll try to get the digest for manifest v2 first, and if it fails, it'll get the digest for manifest v1.
+- It'll try to ping the registry server when constructing a registry client object, which slows itself down.
+
 ## Imports
 
 ```go
